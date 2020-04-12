@@ -1,13 +1,4 @@
-package main
-
-import (
-	"encoding/json"
-	"fmt"
-)
-
-func main() {
-	fmt.Println("Hello, World!")
-}
+package parser
 
 type InstallConfig struct {
 	Version      string             `json:"version"`
@@ -47,8 +38,4 @@ type PartitionConfig struct {
 	Mount string `json:"mount"`
 	Start uint64 `json:"start"`
 	End   uint64 `json:"end"`
-}
-
-func ReadConfig(bytes []byte, config *InstallConfig) error {
-	return json.Unmarshal(bytes, config)
 }
