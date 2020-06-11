@@ -15,9 +15,11 @@ func TestConfigJsonLoad(t *testing.T) {
 	a.Equal("version", config.Version)
 	a.Equal("layout", config.Keyboard.Layout)
 
-	a.Equal("language", config.Localization.Language)
-	a.Equal("locale", config.Localization.Locales[0])
-	a.Equal("locale", config.Localization.Locales[1])
+	a.Equal("system-language", config.Localization.SystemLanguage)
+	a.Equal("language", config.Localization.Locales[0].Language)
+	a.Equal("encoding", config.Localization.Locales[0].Encoding)
+	a.Equal("language", config.Localization.Locales[1].Language)
+	a.Equal("encoding", config.Localization.Locales[1].Encoding)
 	a.Equal("timezone", config.Localization.Timezone)
 
 	a.Equal("hostname", config.Computer.Hostname)
@@ -27,18 +29,18 @@ func TestConfigJsonLoad(t *testing.T) {
 	a.Equal("device", config.Storage.Devices[0].Device)
 	a.Equal("type", config.Storage.Devices[0].Partitions[0].Type)
 	a.Equal("mount", config.Storage.Devices[0].Partitions[0].Mount)
-	a.Equal(uint64(777), config.Storage.Devices[0].Partitions[0].Start)
-	a.Equal(uint64(777), config.Storage.Devices[0].Partitions[0].End)
+	a.Equal(uint64(777), config.Storage.Devices[0].Partitions[0].OffsetBytes)
+	a.Equal(uint64(777), config.Storage.Devices[0].Partitions[0].SizeBytes)
 	a.Equal("type", config.Storage.Devices[0].Partitions[1].Type)
 	a.Equal("mount", config.Storage.Devices[0].Partitions[1].Mount)
-	a.Equal(uint64(777), config.Storage.Devices[0].Partitions[1].Start)
-	a.Equal(uint64(777), config.Storage.Devices[0].Partitions[1].End)
+	a.Equal(uint64(777), config.Storage.Devices[0].Partitions[1].OffsetBytes)
+	a.Equal(uint64(777), config.Storage.Devices[0].Partitions[1].SizeBytes)
 
 	a.Equal("device", config.Storage.Devices[1].Device)
 	a.Equal("type", config.Storage.Devices[1].Partitions[0].Type)
 	a.Equal("mount", config.Storage.Devices[1].Partitions[0].Mount)
-	a.Equal(uint64(777), config.Storage.Devices[1].Partitions[0].Start)
-	a.Equal(uint64(777), config.Storage.Devices[1].Partitions[0].End)
+	a.Equal(uint64(777), config.Storage.Devices[1].Partitions[0].OffsetBytes)
+	a.Equal(uint64(777), config.Storage.Devices[1].Partitions[0].SizeBytes)
 }
 
 var validJson = `
@@ -48,11 +50,17 @@ var validJson = `
     "layout": "layout"
   },
   "localization": {
-    "language": "language",
+    "system_language": "system-language",
     "locales": [
-      "locale",
-      "locale"
-    ],
+		{
+			"language": "language",
+			"encoding": "encoding"
+		},
+		{
+			"language": "language",
+			"encoding": "encoding"
+		}
+	],
     "timezone": "timezone"
   },
   "computer": {
@@ -68,14 +76,14 @@ var validJson = `
           {
             "type": "type",
             "mount": "mount",
-            "start": 777,
-            "end": 777
+            "offset_bytes": 777,
+            "size_bytes": 777
           },
           {
             "type": "type",
             "mount": "mount",
-            "start": 777,
-            "end": 777
+            "offset_bytes": 777,
+            "size_bytes": 777
           }
         ]
       },
@@ -85,8 +93,8 @@ var validJson = `
           {
             "type": "type",
             "mount": "mount",
-            "start": 777,
-            "end": 777
+            "offset_bytes": 777,
+            "size_bytes": 777
           }
         ]
       }
