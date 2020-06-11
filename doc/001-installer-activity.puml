@@ -1,0 +1,22 @@
+@startuml
+partition Installing {
+    (*)  --> "sc -c munix-install config.json"
+    if "is config valid?" then
+        --> [True] "install step N"
+        if step success?
+            [True] if last step?
+                --> [False] "install step N"
+            else
+                --> [True] "finish install"
+                -->(*)
+            endif
+        else
+            --> [False] "returns error"
+        endif
+
+    else
+        --> [False] "returns error"
+    endif
+}
+-->(*)
+@enduml

@@ -1,0 +1,13 @@
+@startwbs
+* Step Partitions
+** for each ${device} in ${storage.devices}"
+*** parted -s ${device} mklabel gpt
+*** for each ${partition} in {device.partitions}
+**** if ${partition.start_mb} == 0
+***** parted -s --align optimal ${device} mkpart ${mountpoint replace '/' for '.' prepend mx.} 0% ${start_mb + size_mb}
+**** else
+***** parted -s --align optimal ${device} mkpart ${mountpoint replace '/' for '.' prepend mx.} ${start_mb} ${start_mb + size_mb}
+*** for each ${mount} in blkid -s PARTLABEL -o full /dev/* | grep mx | 's/[": =]~//g' | sed 's/PARTLABEL~//g' | sed 's/mx~//g' | sed 's/\./\//g'
+**** mkfs.${mount.type} ${mount.device}
+**** mount ${mount.device} ${mount.location}
+@endwbs
