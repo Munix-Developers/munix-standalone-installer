@@ -3,6 +3,7 @@ package main
 import (
 	"io/ioutil"
 	"log"
+	"net.matbm/munix/muinstaller/installer"
 	"net.matbm/munix/muinstaller/parser"
 	"net.matbm/munix/muinstaller/validator"
 	"os"
@@ -26,6 +27,12 @@ func main() {
 
 	err = validator.ValidateConfig(conf)
 	check(err)
+
+	log.Print("config valid, starting Munix installation")
+	err = installer.Install(conf)
+	check(err)
+
+	log.Print("install successful [ º_º]")
 }
 
 func check(err error) {

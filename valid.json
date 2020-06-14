@@ -1,0 +1,46 @@
+{
+  "version": "1.0",
+  "keyboard": {
+    "layout": "layout"
+  },
+  "localization": {
+    "system_language": "system-language",
+    "locales": [
+		{
+			"language": "language",
+			"encoding": "encoding"
+		},
+		{
+			"language": "language",
+			"encoding": "encoding"
+		}
+	],
+    "timezone": "timezone"
+  },
+  "computer": {
+    "hostname": "hostname",
+    "username": "username",
+    "password": "password"
+  },
+  "storage": {
+    "devices": [
+      {
+        "device": "/dev/sda",
+        "partitions": [
+          {
+            "type": "type",
+            "mount": "mount",
+            "offset_bytes": 777,
+            "size_bytes": 777
+          },
+          {
+            "type": "type",
+            "mount": "mount",
+            "offset_bytes": 777,
+            "size_bytes": 777
+          }
+        ]
+      }
+    ]
+  }
+}
