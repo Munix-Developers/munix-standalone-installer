@@ -1,6 +1,8 @@
 # Munix Installer
 
-The Munix installer is a command line tool to install the Munix Linux distribution. 
+> **XXX > !WARNING! < XXX** DON'T RUN THE `muinstaller` IN A ALREADY INSTALLED LINUX SYSTEM! THE EXECUTABLE MAY CAUSE **PERMANET DATA LOSS**. **PROCEED WITH CAUTION**.
+
+The Munix installer is a command line tool to install the Munix Linux distribution.
 
 ## Arguments
 

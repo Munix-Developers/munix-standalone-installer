@@ -28,16 +28,16 @@
         "device": "/dev/sda",
         "partitions": [
           {
-            "type": "type",
-            "mount": "mount",
-            "offset_bytes": 777,
-            "size_bytes": 777
+            "type": "ext4",
+            "mount": "/",
+            "offset_bytes": 0,
+            "size_bytes": 500
           },
           {
-            "type": "type",
-            "mount": "mount",
-            "offset_bytes": 777,
-            "size_bytes": 777
+            "type": "ext4",
+            "mount": "/home",
+            "offset_bytes": 500,
+            "size_bytes": 1500
           }
         ]
       }
