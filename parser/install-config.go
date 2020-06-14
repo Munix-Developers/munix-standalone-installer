@@ -43,4 +43,5 @@ type PartitionConfig struct {
 	Mount       string `json:"mount" validate:"required"`
 	OffsetBytes uint64 `json:"offset_bytes" validate:"required"`
 	SizeBytes   uint64 `json:"size_bytes" validate:"required"`
+	Device      string
 }
