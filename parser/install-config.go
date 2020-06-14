@@ -1,7 +1,7 @@
 package parser
 
 type InstallConfig struct {
-	Version      string             `json:"version" validate:"required"`
+	Version      string             `json:"version" validate:"required,installer-version"`
 	Keyboard     KeyboardConfig     `json:"keyboard" validate:"required"`
 	Localization LocalizationConfig `json:"localization" validate:"required"`
 	Computer     ComputerConfig     `json:"computer" validate:"required"`

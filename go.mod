@@ -1,4 +1,4 @@
-module net.matbm/munix/installer
+module net.matbm/munix/muinstaller
 
 go 1.14
 

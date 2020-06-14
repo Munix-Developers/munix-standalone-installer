@@ -2,28 +2,23 @@ package validator
 
 import (
 	"github.com/go-playground/validator/v10"
-	"net.matbm/munix/installer/parser"
+	"net.matbm/munix/muinstaller/parser"
 )
 
-const accepted_version = "1.0"
+const acceptedVersion = "1.0"
 
 var validate *validator.Validate
 
-func ValidateConfig(config parser.InstallConfig) (bool, error) {
+func ValidateConfig(config parser.InstallConfig) error {
 	err := getValidator().Struct(config)
 
-	if err != nil {
-		return false, err
-	}
-
-	return true, nil
+	return err
 }
 
 func getValidator() *validator.Validate {
 	if validate == nil {
 		validate = validator.New()
-		_ = validate.RegisterValidation("arch-language", archLanguage)
-		_ = validate.RegisterValidation("installer-version", archLanguage)
+		_ = validate.RegisterValidation("installer-version", installerVersion)
 	}
 
 	return validate
@@ -33,7 +28,7 @@ func getValidator() *validator.Validate {
 func installerVersion(f1 validator.FieldLevel) bool {
 	version := f1.Field().String()
 
-	return version == accepted_version
+	return version == acceptedVersion
 }
 
 // Validates if the language in the config exists for the Operating System.

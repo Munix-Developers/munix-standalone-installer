@@ -2,7 +2,7 @@ package validator
 
 import (
 	"github.com/stretchr/testify/assert"
-	"net.matbm/munix/installer/parser"
+	"net.matbm/munix/muinstaller/parser"
 	"testing"
 )
 
@@ -13,19 +13,18 @@ func TestAcceptValidConfig(t *testing.T) {
 	a := assert.New(t)
 
 	config := validConfig()
-	isValid, err := ValidateConfig(config)
+	err := ValidateConfig(config)
 
-	a.True(isValid)
 	a.NoError(err)
 }
 
 func TestWrongVersionError(t *testing.T) {
 	a := assert.New(t)
 
-	config := parser.InstallConfig{Version: wrongVersion}
-	isValid, err := ValidateConfig(config)
+	config := validConfig()
+	config.Version = wrongVersion
+	err := ValidateConfig(config)
 
-	a.False(isValid)
 	a.Error(err)
 }
 

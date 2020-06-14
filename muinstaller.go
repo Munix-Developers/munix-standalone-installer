@@ -1,0 +1,35 @@
+package main
+
+import (
+	"io/ioutil"
+	"log"
+	"net.matbm/munix/muinstaller/parser"
+	"net.matbm/munix/muinstaller/validator"
+	"os"
+)
+
+const version = "1.0"
+
+func main() {
+	log.Printf("starting Munix installer version %s", version)
+
+	if len(os.Args) < 2 {
+		log.Fatal("usage: muinstaller [config-file.json]")
+	}
+
+	bytes, err := ioutil.ReadFile(os.Args[1])
+	check(err)
+
+	conf := parser.InstallConfig{}
+	err = parser.ReadConfig(bytes, &conf)
+	check(err)
+
+	err = validator.ValidateConfig(conf)
+	check(err)
+}
+
+func check(err error) {
+	if err != nil {
+		log.Fatal(err)
+	}
+}
