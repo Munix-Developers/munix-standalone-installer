@@ -153,4 +153,4 @@ tags
 # End of https://www.gitignore.io/api/go,git,vim,intellij
 
 # Executables
-installer
+muinstaller
