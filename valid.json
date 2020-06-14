@@ -30,14 +30,14 @@
           {
             "type": "ext4",
             "mount": "/",
-            "offset_bytes": 0,
-            "size_bytes": 500
+            "start_mb": 0,
+            "size_mb": 500
           },
           {
             "type": "ext4",
             "mount": "/home",
-            "offset_bytes": 500,
-            "size_bytes": 1500
+            "start_mb": 500,
+            "size_mb": 1500
           }
         ]
       }
