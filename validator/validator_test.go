@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-const rightVersion = "1.0"
+const rightVersion = "1.1"
 const wrongVersion = "potatoe"
 
 func TestAcceptValidConfig(t *testing.T) {
@@ -67,22 +67,22 @@ func validConfig() parser.InstallConfig {
 					Device: "/dev/sda2",
 					Partitions: []parser.PartitionConfig{
 						{
-							Type:        "ext4",
-							Mount:       "/boot",
-							OffsetBytes: 0,
-							SizeBytes:   2.56e+8,
+							Type:           "ext4",
+							Mount:          "/boot",
+							StartMegaBytes: 0,
+							SizeMegaBytes:  2.56e+8,
 						},
 						{
-							Type:        "ext4",
-							Mount:       "/",
-							OffsetBytes: 2.56e+8 + 1,
-							SizeBytes:   5e+10,
+							Type:           "ext4",
+							Mount:          "/",
+							StartMegaBytes: 2.56e+8 + 1,
+							SizeMegaBytes:  5e+10,
 						},
 						{
-							Type:        "ext4",
-							Mount:       "/home",
-							OffsetBytes: 5e+10 + 1,
-							SizeBytes:   4.5e+11,
+							Type:           "ext4",
+							Mount:          "/home",
+							StartMegaBytes: 5e+10 + 1,
+							SizeMegaBytes:  4.5e+11,
 						},
 					},
 				},

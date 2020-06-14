@@ -29,18 +29,18 @@ func TestConfigJsonLoad(t *testing.T) {
 	a.Equal("device", config.Storage.Devices[0].Device)
 	a.Equal("type", config.Storage.Devices[0].Partitions[0].Type)
 	a.Equal("mount", config.Storage.Devices[0].Partitions[0].Mount)
-	a.Equal(uint64(777), config.Storage.Devices[0].Partitions[0].OffsetBytes)
-	a.Equal(uint64(777), config.Storage.Devices[0].Partitions[0].SizeBytes)
+	a.Equal(uint64(777), config.Storage.Devices[0].Partitions[0].StartMegaBytes)
+	a.Equal(uint64(777), config.Storage.Devices[0].Partitions[0].SizeMegaBytes)
 	a.Equal("type", config.Storage.Devices[0].Partitions[1].Type)
 	a.Equal("mount", config.Storage.Devices[0].Partitions[1].Mount)
-	a.Equal(uint64(777), config.Storage.Devices[0].Partitions[1].OffsetBytes)
-	a.Equal(uint64(777), config.Storage.Devices[0].Partitions[1].SizeBytes)
+	a.Equal(uint64(777), config.Storage.Devices[0].Partitions[1].StartMegaBytes)
+	a.Equal(uint64(777), config.Storage.Devices[0].Partitions[1].SizeMegaBytes)
 
 	a.Equal("device", config.Storage.Devices[1].Device)
 	a.Equal("type", config.Storage.Devices[1].Partitions[0].Type)
 	a.Equal("mount", config.Storage.Devices[1].Partitions[0].Mount)
-	a.Equal(uint64(777), config.Storage.Devices[1].Partitions[0].OffsetBytes)
-	a.Equal(uint64(777), config.Storage.Devices[1].Partitions[0].SizeBytes)
+	a.Equal(uint64(777), config.Storage.Devices[1].Partitions[0].StartMegaBytes)
+	a.Equal(uint64(777), config.Storage.Devices[1].Partitions[0].SizeMegaBytes)
 }
 
 var validJson = `
@@ -76,14 +76,14 @@ var validJson = `
           {
             "type": "type",
             "mount": "mount",
-            "offset_bytes": 777,
-            "size_bytes": 777
+            "start_mb": 777,
+            "size_mb": 777
           },
           {
             "type": "type",
             "mount": "mount",
-            "offset_bytes": 777,
-            "size_bytes": 777
+            "start_mb": 777,
+            "size_mb": 777
           }
         ]
       },
@@ -93,8 +93,8 @@ var validJson = `
           {
             "type": "type",
             "mount": "mount",
-            "offset_bytes": 777,
-            "size_bytes": 777
+            "start_mb": 777,
+            "size_mb": 777
           }
         ]
       }

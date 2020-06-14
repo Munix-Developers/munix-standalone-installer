@@ -5,7 +5,7 @@ import (
 	"net.matbm/munix/muinstaller/parser"
 )
 
-const acceptedVersion = "1.0"
+const acceptedVersion = "1.1"
 
 var validate *validator.Validate
 

@@ -39,9 +39,9 @@ type DeviceConfig struct {
 }
 
 type PartitionConfig struct {
-	Type        string `json:"type" validate:"required"`
-	Mount       string `json:"mount" validate:"required"`
-	OffsetBytes uint64 `json:"offset_bytes" validate:"required"`
-	SizeBytes   uint64 `json:"size_bytes" validate:"required"`
-	Device      string
+	Type           string `json:"type" validate:"required"`
+	Mount          string `json:"mount" validate:"required"`
+	StartMegaBytes uint64 `json:"start_mb" validate:"required"`
+	SizeMegaBytes  uint64 `json:"size_mb" validate:"required"`
+	Device         string
 }

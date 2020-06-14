@@ -43,8 +43,8 @@ func (p PartitionsStep) Run(c parser.InstallConfig) error {
 
 // Creates a partition for a device with a custom partition label
 func createPartition(d parser.DeviceConfig, p parser.PartitionConfig) error {
-	start := formatStart(p.OffsetBytes)
-	end := megaBytes(p.OffsetBytes + p.SizeBytes)
+	start := formatStart(p.StartMegaBytes)
+	end := megaBytes(p.StartMegaBytes + p.SizeMegaBytes)
 	log.Printf("creating partition: device %s\tstart %s\tend %s\t\tfor %s mountpoint", d.Device, start, end, p.Mount)
 	return exec.Command("parted", "-s", "--align", "optimal",
 		d.Device,
