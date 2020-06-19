@@ -2,6 +2,20 @@ package installer
 
 import "net.matbm/munix/muinstaller/parser"
 
+// Runs the installation steps in a pre-defined order.
 func Install(c parser.InstallConfig) error {
-	return PartitionsStep{}.Run(c)
+	var steps = []InstallStep{
+		PartitionsStep{},
+		FileSystemStep{},
+	}
+
+	for _, step := range steps {
+		err := step.Run(c)
+
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

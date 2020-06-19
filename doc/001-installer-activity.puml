@@ -1,6 +1,6 @@
 @startuml
 partition Installing {
-    (*)  --> "sc -c munix-install config.json"
+    (*)  --> "muinstall seed.json"
     if "is config valid?" then
         --> [True] "install step N"
         if step success?
