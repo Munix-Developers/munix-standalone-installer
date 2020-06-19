@@ -1,0 +1,5 @@
+@startwbs
+* Step Mount
+** for each ${partition} in ${storage.devices[*].partitions}
+*** mount ${partition.Device} ${partition.Mount}
+@endwbs

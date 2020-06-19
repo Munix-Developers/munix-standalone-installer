@@ -1,0 +1,5 @@
+@startwbs
+* Step Filesystem
+** for each ${partition} in ${storage.devices[*].partitions}
+*** makeFilesystem(${partition.Device}, ${partition.Type})
+@endwbs
