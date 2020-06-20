@@ -4,8 +4,8 @@ import (
 	"github.com/dchest/uniuri"
 	"log"
 	"net.matbm/munix/muinstaller/parser"
+	"net.matbm/munix/muinstaller/utils"
 	"os"
-	"os/exec"
 )
 
 type MountStep struct{}
@@ -53,5 +53,5 @@ func setInstallMount(p *parser.PartitionConfig, root string) {
 
 // Mounts a device using the command mount
 func mountDevice(device string, mount string) error {
-	return exec.Command("mount", device, mount).Run()
+	return utils.StdoutCmd("mount", "-v", device, mount).Run()
 }

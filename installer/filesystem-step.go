@@ -3,7 +3,7 @@ package installer
 import (
 	"log"
 	"net.matbm/munix/muinstaller/parser"
-	"os/exec"
+	"net.matbm/munix/muinstaller/utils"
 )
 
 type FileSystemStep struct{}
@@ -30,5 +30,5 @@ func (p FileSystemStep) Run(c parser.InstallConfig) error {
 
 // Creates a filesystem using the command "mkfs." + device.
 func createFileSystem(device string, fileSystemType string) error {
-	return exec.Command("mkfs."+fileSystemType, device).Run()
+	return utils.StdoutCmd("mkfs."+fileSystemType, device).Run() // TODO if SWAP do nothing
 }

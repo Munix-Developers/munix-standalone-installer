@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net.matbm/munix/muinstaller/parser"
-	"os/exec"
+	"net.matbm/munix/muinstaller/utils"
 	"sort"
 	"strings"
 )
@@ -46,12 +46,12 @@ func createPartition(d parser.DeviceConfig, p parser.PartitionConfig) error {
 	start := formatStart(p.StartMegaBytes)
 	end := megaBytes(p.StartMegaBytes + p.SizeMegaBytes)
 	log.Printf("creating partition: device %s\tstart %s\tend %s\t\tfor %s mountpoint", d.Device, start, end, p.Mount)
-	return exec.Command("parted", "-s", "--align", "optimal",
+	return utils.StdoutCmd("parted", "-s", "--align", "optimal",
 		d.Device,
 		"mkpart",
 		getPartLabel(p.Mount),
 		start,
-		end).Run() // TODO: parse why it failed
+		end).Run()
 }
 
 // Generates a partition label based in the mount point prepending 'mx' and replacing '/' for '.'
@@ -79,7 +79,7 @@ func megaBytes(size uint64) string {
 
 // Creates a GPT label for a device
 func createGptLabel(d parser.DeviceConfig) error {
-	return exec.Command("parted", "-s", d.Device, "mklabel", "gpt").Run() // TODO: parse why it failed
+	return utils.StdoutCmd("parted", "-s", d.Device, "mklabel", "gpt").Run()
 }
 
 // Since parted doesn't returns which is the device that was created, we need to find it manually. This function searches
@@ -110,7 +110,7 @@ func discoverPartitionDevices(d *parser.DeviceConfig) error {
 
 // Runs blkid searching for the PARTLABEL key in devices
 func runBlkid() (string, error) {
-	blkid := exec.Command("blkid", "-s", "PARTLABEL")
+	blkid := utils.StdoutCmd("blkid", "-s", "PARTLABEL")
 	out := new(bytes.Buffer)
 	blkid.Stdout = out
 
