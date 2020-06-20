@@ -1,0 +1,5 @@
+@startwbs
+* Step Pacstrap
+** echo "Server = ${pacman-mirror}" > /etc/pacman.d/mirrorlist
+** pacstrap ${installRoot} base
+@endwbs
