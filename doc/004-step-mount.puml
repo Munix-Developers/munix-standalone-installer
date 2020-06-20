@@ -1,5 +1,7 @@
 @startwbs
 * Step Mount
+** set install root to /{uuid} inside config
 ** for each ${partition} in ${storage.devices[*].partitions}
-*** mount ${partition.Device} ${partition.Mount}
+*** set ${partition.InstallMount} to ${installRoot + partition.Mount}
+*** mount ${partition.Device} ${partition.InstallMount}
 @endwbs

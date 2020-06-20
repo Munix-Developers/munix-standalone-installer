@@ -7,6 +7,7 @@ func Install(c parser.InstallConfig) error {
 	var steps = []InstallStep{
 		PartitionsStep{},
 		FileSystemStep{},
+		MountStep{},
 	}
 
 	for _, step := range steps {
