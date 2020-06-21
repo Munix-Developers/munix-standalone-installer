@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"log"
+	"net.matbm/munix/muinstaller/installer/context"
 	"net.matbm/munix/muinstaller/parser"
 	"net.matbm/munix/muinstaller/utils"
 	"sort"
@@ -12,11 +13,11 @@ import (
 
 type PartitionsStep struct{}
 
-func (p PartitionsStep) Run(c parser.InstallConfig) error {
+func (p PartitionsStep) Run(config parser.InstallConfig, context *context.InstallContext) error {
 	log.Println("starting partition step")
 	var err error = nil
 
-	for _, d := range c.Storage.Devices {
+	for _, d := range config.Storage.Devices {
 		log.Printf("creating gpt label for %s", d.Device)
 		err = createGptLabel(d)
 

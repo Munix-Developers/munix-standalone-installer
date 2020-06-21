@@ -31,13 +31,13 @@
             "type": "ext4",
             "mount": "/",
             "start_mb": 0,
-            "size_mb": 500
+            "size_mb": 1000
           },
           {
             "type": "ext4",
             "mount": "/home",
-            "start_mb": 500,
-            "size_mb": 1500
+            "start_mb": 1000,
+            "size_mb": 1000
           }
         ]
       }

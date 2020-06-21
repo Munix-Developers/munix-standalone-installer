@@ -1,9 +1,12 @@
 package installer
 
-import "net.matbm/munix/muinstaller/parser"
+import (
+	"net.matbm/munix/muinstaller/installer/context"
+	"net.matbm/munix/muinstaller/parser"
+)
 
 // Runs the installation steps in a pre-defined order.
-func Install(c parser.InstallConfig) error {
+func Install(config parser.InstallConfig) error {
 	var steps = []InstallStep{
 		PartitionsStep{},
 		FileSystemStep{},
@@ -11,8 +14,10 @@ func Install(c parser.InstallConfig) error {
 		PacstrapStep{},
 	}
 
+	installContext := context.New()
+
 	for _, step := range steps {
-		err := step.Run(c)
+		err := step.Run(config, installContext)
 
 		if err != nil {
 			return err

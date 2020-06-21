@@ -3,6 +3,7 @@ package installer
 import (
 	"github.com/dchest/uniuri"
 	"log"
+	"net.matbm/munix/muinstaller/installer/context"
 	"net.matbm/munix/muinstaller/parser"
 	"net.matbm/munix/muinstaller/utils"
 	"os"
@@ -11,15 +12,15 @@ import (
 type MountStep struct{}
 
 // Creates a filesystem in each of the partitions.
-func (p MountStep) Run(c parser.InstallConfig) error {
+func (p MountStep) Run(config parser.InstallConfig, context *context.InstallContext) error {
 	log.Printf("starting mount step")
-	setInstallRoot(&c)
+	setInstallRoot(context)
 
 	var err error = nil
 
-	for _, d := range c.Storage.Devices {
+	for _, d := range config.Storage.Devices {
 		for _, p := range d.Partitions {
-			setInstallMount(&p, c.Storage.InstallRoot)
+			setInstallMount(&p, context.GetVar("root"))
 
 			log.Printf("creating %s directories", p.InstallMount)
 			err = os.MkdirAll(p.InstallMount, 0755)
@@ -28,7 +29,7 @@ func (p MountStep) Run(c parser.InstallConfig) error {
 				return err
 			}
 
-			log.Printf("mouting %s in %s%s", p.Device, c.Storage.InstallRoot, p.Mount)
+			log.Printf("mouting %s in %s%s", p.Device, config.Storage.InstallRoot, p.Mount)
 			err = mountDevice(p.Device, p.InstallMount)
 
 			if err != nil {
@@ -41,9 +42,9 @@ func (p MountStep) Run(c parser.InstallConfig) error {
 }
 
 // Sets the install root to a random directory
-func setInstallRoot(c *parser.InstallConfig) {
+func setInstallRoot(c *context.InstallContext) {
 	installRoot := uniuri.NewLen(4)
-	c.Storage.InstallRoot = "/" + installRoot // FIXME: this does not work, I can't set the value of InstallRoot here
+	c.SetVar("root", "/"+installRoot)
 }
 
 // Sets the install mount of the PartitionConfig to root + p.Mount
