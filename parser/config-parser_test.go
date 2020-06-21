@@ -41,6 +41,8 @@ func TestConfigJsonLoad(t *testing.T) {
 	a.Equal("mount", config.Storage.Devices[1].Partitions[0].Mount)
 	a.Equal(uint64(777), config.Storage.Devices[1].Partitions[0].StartMegaBytes)
 	a.Equal(uint64(777), config.Storage.Devices[1].Partitions[0].SizeMegaBytes)
+
+	a.Equal("mirror", config.Pacman.Mirror)
 }
 
 var validJson = `
@@ -99,6 +101,9 @@ var validJson = `
         ]
       }
     ]
+  },
+  "pacman": {
+	"mirror": "mirror"
   }
 }
 `

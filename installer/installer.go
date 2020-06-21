@@ -8,6 +8,7 @@ func Install(c parser.InstallConfig) error {
 		PartitionsStep{},
 		FileSystemStep{},
 		MountStep{},
+		PacstrapStep{},
 	}
 
 	for _, step := range steps {

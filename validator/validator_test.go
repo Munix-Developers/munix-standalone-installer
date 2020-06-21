@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-const rightVersion = "1.1"
+const rightVersion = "1.2"
 const wrongVersion = "potatoe"
 
 func TestAcceptValidConfig(t *testing.T) {

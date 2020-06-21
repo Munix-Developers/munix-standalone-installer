@@ -43,7 +43,7 @@ func (p MountStep) Run(c parser.InstallConfig) error {
 // Sets the install root to a random directory
 func setInstallRoot(c *parser.InstallConfig) {
 	installRoot := uniuri.NewLen(4)
-	c.Storage.InstallRoot = "/" + installRoot
+	c.Storage.InstallRoot = "/" + installRoot // FIXME: this does not work, I can't set the value of InstallRoot here
 }
 
 // Sets the install mount of the PartitionConfig to root + p.Mount

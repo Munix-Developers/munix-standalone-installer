@@ -6,6 +6,7 @@ type InstallConfig struct {
 	Localization LocalizationConfig `json:"localization" validate:"required"`
 	Computer     ComputerConfig     `json:"computer" validate:"required"`
 	Storage      StorageConfig      `json:"storage" validate:"required"`
+	Pacman       PacmanConfig       `json:"pacman" validate:"required"`
 }
 
 type KeyboardConfig struct {
@@ -46,4 +47,8 @@ type PartitionConfig struct {
 	SizeMegaBytes  uint64 `json:"size_mb" validate:"required"`
 	Device         string
 	InstallMount   string
+}
+
+type PacmanConfig struct {
+	Mirror string `json:"mirror" validate:"required"` // TODO: maybe use a list here in the future?
 }

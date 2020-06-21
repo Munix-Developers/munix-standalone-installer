@@ -153,7 +153,7 @@ func setDeviceForPartition(d *parser.DeviceConfig, label string, device string) 
 		return fmt.Errorf("device for %s mountpoint from %s didn't matched any mounts in partition list, searched mount: %s", device, d.Device, mount)
 	}
 
-	partition := &d.Partitions[partId]
+	partition := &d.Partitions[partId] // FIXME: dealing with pointers is bad, I need to create a InstallContext
 	partition.Device = device
 
 	log.Printf("found %s device for %s mount", partition.Device, partition.Mount)
