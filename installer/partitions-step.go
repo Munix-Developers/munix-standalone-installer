@@ -33,7 +33,7 @@ func (p PartitionsStep) Run(config parser.InstallConfig, context *context.Instal
 
 		}
 
-		err = discoverPartitionDevices(&d)
+		err = discoverPartitionDevices(d, context)
 		if err != nil {
 			return err
 		}
@@ -85,7 +85,7 @@ func createGptLabel(d parser.DeviceConfig) error {
 
 // Since parted doesn't returns which is the device that was created, we need to find it manually. This function searches
 // for partitions where the label starts with "mx" and exists in the configuration
-func discoverPartitionDevices(d *parser.DeviceConfig) error {
+func discoverPartitionDevices(d parser.DeviceConfig, c *context.InstallContext) error {
 	blkidOut, err := runBlkid()
 	if err != nil {
 		return err
@@ -100,7 +100,7 @@ func discoverPartitionDevices(d *parser.DeviceConfig) error {
 		line = strings.ReplaceAll(line, "\"", "")
 		data := strings.Split(line, " ")
 
-		err = proccessBlkidLine(d, data)
+		err = proccessBlkidLine(d, data, c)
 		if err != nil {
 			return err
 		}
@@ -124,13 +124,13 @@ func runBlkid() (string, error) {
 }
 
 // Checks whether a blkid output have a installer device and mount point. If yes, configure the DeviceConfigPointer. If not, ignore the device.
-func proccessBlkidLine(d *parser.DeviceConfig, data []string) error {
+func proccessBlkidLine(d parser.DeviceConfig, data []string, c *context.InstallContext) error {
 	if len(data) > 1 {
 		device := data[0]
 		label := data[1]
 
 		if strings.HasPrefix(label, "mx") {
-			err2 := setDeviceForPartition(d, label, device)
+			err2 := setDeviceForPartition(d, label, device, c)
 			if err2 != nil {
 				return err2
 			}
@@ -143,7 +143,7 @@ func proccessBlkidLine(d *parser.DeviceConfig, data []string) error {
 
 // Receives a label by blkid, parses it and set the device for a mountpoint inside the DeviceConfig pointer. Halts if the
 // device doesn't match any mountpoint inside DeviceConfig
-func setDeviceForPartition(d *parser.DeviceConfig, label string, device string) error {
+func setDeviceForPartition(d parser.DeviceConfig, label string, device string, c *context.InstallContext) error {
 	mount := strings.ReplaceAll(label[2:], ".", "/")
 
 	partId := sort.Search(len(d.Partitions), func(i int) bool {
@@ -154,9 +154,9 @@ func setDeviceForPartition(d *parser.DeviceConfig, label string, device string) 
 		return fmt.Errorf("device for %s mountpoint from %s didn't matched any mounts in partition list, searched mount: %s", device, d.Device, mount)
 	}
 
-	partition := &d.Partitions[partId] // FIXME: dealing with pointers is bad, I need to create a InstallContext
-	partition.Device = device
+	partition := d.Partitions[partId]
+	c.SetDeviceForPartition(partition, device)
 
-	log.Printf("found %s device for %s mount", partition.Device, partition.Mount)
+	log.Printf("found %s device for %s mount", device, partition.Mount)
 	return nil
 }

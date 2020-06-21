@@ -20,17 +20,19 @@ func (p MountStep) Run(config parser.InstallConfig, context *context.InstallCont
 
 	for _, d := range config.Storage.Devices {
 		for _, p := range d.Partitions {
-			setInstallMount(&p, context.GetVar("root"))
+			setInstallMount(context, p, context.GetVar("root"))
 
-			log.Printf("creating %s directories", p.InstallMount)
-			err = os.MkdirAll(p.InstallMount, 0755)
+			installMount := context.GetInstallMount(p)
+			log.Printf("creating %s directories", installMount)
+			err = os.MkdirAll(installMount, 0755)
 
 			if err != nil {
 				return err
 			}
 
-			log.Printf("mouting %s in %s%s", p.Device, config.Storage.InstallRoot, p.Mount)
-			err = mountDevice(p.Device, p.InstallMount)
+			device := context.GetDevice(p)
+			log.Printf("mouting %s in %s%s", device, context.GetVar("root"), p.Mount)
+			err = mountDevice(device, installMount)
 
 			if err != nil {
 				return err
@@ -48,8 +50,8 @@ func setInstallRoot(c *context.InstallContext) {
 }
 
 // Sets the install mount of the PartitionConfig to root + p.Mount
-func setInstallMount(p *parser.PartitionConfig, root string) {
-	p.InstallMount = root + p.Mount
+func setInstallMount(context *context.InstallContext, p parser.PartitionConfig, root string) {
+	context.SetInstallMountForPartition(p, root)
 }
 
 // Mounts a device using the command mount

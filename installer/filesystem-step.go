@@ -17,8 +17,9 @@ func (p FileSystemStep) Run(config parser.InstallConfig, context *context.Instal
 	for _, d := range config.Storage.Devices {
 		log.Printf("creating filesystem for %s", d.Device)
 		for _, p := range d.Partitions {
-			log.Printf("creating %s filesystem in %s device", p.Type, p.Device)
-			err = createFileSystem(p.Device, p.Type)
+			device := context.GetDevice(p)
+			log.Printf("creating %s filesystem in %s device", p.Type, device)
+			err = createFileSystem(device, p.Type)
 
 			if err != nil {
 				return err

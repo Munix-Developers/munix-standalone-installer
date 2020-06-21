@@ -31,8 +31,7 @@ type ComputerConfig struct {
 }
 
 type StorageConfig struct {
-	InstallRoot string
-	Devices     []DeviceConfig `json:"devices" validate:"required"`
+	Devices []DeviceConfig `json:"devices" validate:"required"`
 }
 
 type DeviceConfig struct {
@@ -45,8 +44,6 @@ type PartitionConfig struct {
 	Mount          string `json:"mount" validate:"required"`
 	StartMegaBytes uint64 `json:"start_mb" validate:"required"`
 	SizeMegaBytes  uint64 `json:"size_mb" validate:"required"`
-	Device         string
-	InstallMount   string
 }
 
 type PacmanConfig struct {
