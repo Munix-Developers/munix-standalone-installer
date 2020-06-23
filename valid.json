@@ -44,6 +44,6 @@
     ]
   },
   "pacman": {
-    "mirror": "http://archlinux.c3sl.ufpr.br/$repo/os/$arch"
+    "mirror": "http://br.mirror.archlinux-br.org/$repo/os/$arch"
   }
 }

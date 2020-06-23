@@ -1,0 +1,4 @@
+@startwbs
+* Step Chroot Setup
+** mount everything in the $(whereis arch-chroot) script
+@endwbs

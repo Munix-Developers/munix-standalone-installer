@@ -12,6 +12,7 @@ func Install(config parser.InstallConfig) error {
 		FileSystemStep{},
 		MountStep{},
 		PacstrapStep{},
+		ChrootSetupStep{},
 	}
 
 	installContext := context.New()
