@@ -33,6 +33,6 @@ func (p PacstrapStep) Run(config parser.InstallConfig, ic *context.InstallContex
 }
 
 func setupPacmanMirror(mirror string) error {
-	return ioutil.WriteFile("/etc/pacman.d/mirrorlist\n", []byte(fmt.Sprintf("Server = %s", mirror)),
+	return ioutil.WriteFile("/etc/pacman.d/mirrorlist", []byte(fmt.Sprintf("Server = %s\n", mirror)),
 		0644)
 }
