@@ -11,7 +11,7 @@ import (
 
 type MountStep struct{}
 
-// Creates a filesystem in each of the partitions.
+// Mounts each partition in ROOT
 func (p MountStep) Run(config parser.InstallConfig, context *context.InstallContext) error {
 	log.Printf("starting mount step")
 	setInstallRoot(context)
