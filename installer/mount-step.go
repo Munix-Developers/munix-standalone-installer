@@ -1,12 +1,13 @@
 package installer
 
 import (
-	"github.com/dchest/uniuri"
+	"fmt"
 	"log"
 	"net.matbm/munix/muinstaller/installer/context"
 	"net.matbm/munix/muinstaller/parser"
 	"net.matbm/munix/muinstaller/utils"
 	"os"
+	"time"
 )
 
 type MountStep struct{}
@@ -48,8 +49,12 @@ func (p MountStep) Run(config parser.InstallConfig, context *context.InstallCont
 
 // Sets the install root to a random directory
 func setInstallRoot(c *context.InstallContext) {
-	installRoot := uniuri.NewLen(4)
-	c.SetVar("root", "/"+installRoot)
+	c.SetVar("root", getTimestampRoot())
+}
+
+// Returns /muinstaller-${epoch-time}
+func getTimestampRoot() string {
+	return fmt.Sprintf("/muinstaller-%d", time.Now().Unix())
 }
 
 // Sets the install mount of the PartitionConfig to root + p.Mount
