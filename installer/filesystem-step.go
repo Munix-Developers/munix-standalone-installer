@@ -9,9 +9,12 @@ import (
 
 type FileSystemStep struct{}
 
+func (p FileSystemStep) GetName() string {
+	return "filesystem"
+}
+
 // Creates a filesystem in each of the partitions.
 func (p FileSystemStep) Run(config parser.InstallConfig, context *context.InstallContext) error {
-	log.Printf("starting filesystem step")
 	var err error = nil
 
 	for _, d := range config.Storage.Devices {

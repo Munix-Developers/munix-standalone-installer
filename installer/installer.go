@@ -1,6 +1,7 @@
 package installer
 
 import (
+	"log"
 	"net.matbm/munix/muinstaller/installer/context"
 	"net.matbm/munix/muinstaller/parser"
 )
@@ -17,13 +18,22 @@ func Install(config parser.InstallConfig) error {
 
 	installContext := context.New()
 
+	err := runSteps(config, steps, installContext)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func runSteps(config parser.InstallConfig, steps []InstallStep, installContext *context.InstallContext) error {
 	for _, step := range steps {
+		log.Printf("running %s step", step.GetName())
 		err := step.Run(config, installContext)
 
 		if err != nil {
 			return err
 		}
 	}
-
 	return nil
 }

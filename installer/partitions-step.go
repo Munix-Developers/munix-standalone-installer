@@ -13,8 +13,11 @@ import (
 
 type PartitionsStep struct{}
 
+func (p PartitionsStep) GetName() string {
+	return "partition"
+}
+
 func (p PartitionsStep) Run(config parser.InstallConfig, context *context.InstallContext) error {
-	log.Println("starting partition step")
 	var err error = nil
 
 	for _, d := range config.Storage.Devices {

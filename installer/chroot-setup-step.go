@@ -2,7 +2,6 @@ package installer
 
 import (
 	"fmt"
-	"log"
 	"net.matbm/munix/muinstaller/installer/context"
 	"net.matbm/munix/muinstaller/parser"
 	"net.matbm/munix/muinstaller/utils"
@@ -10,12 +9,14 @@ import (
 
 type ChrootSetupStep struct{}
 
+func (p ChrootSetupStep) GetName() string {
+	return "chroot"
+}
+
 // Creates mount points crucial to a chroot.
 // Based in the arch-chroot shell script.
 // TODO: add resolv.conf setup
 func (p ChrootSetupStep) Run(config parser.InstallConfig, ic *context.InstallContext) error {
-	log.Printf("starting chroot-setup step")
-
 	var err error = nil
 
 	root := ic.GetVar("root")
