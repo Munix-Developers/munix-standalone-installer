@@ -14,7 +14,7 @@ func (p FileSystemStep) GetName() string {
 }
 
 // Creates a filesystem in each of the partitions.
-func (p FileSystemStep) Run(config parser.InstallConfig, context *context.InstallContext) error {
+func (p FileSystemStep) Install(config parser.InstallConfig, context *context.InstallContext) error {
 	var err error = nil
 
 	for _, d := range config.Storage.Devices {
@@ -31,6 +31,10 @@ func (p FileSystemStep) Run(config parser.InstallConfig, context *context.Instal
 	}
 
 	return nil
+}
+
+func (p FileSystemStep) Cleanup(config parser.InstallConfig, context *context.InstallContext) {
+
 }
 
 // Creates a filesystem using the command "mkfs." + device.

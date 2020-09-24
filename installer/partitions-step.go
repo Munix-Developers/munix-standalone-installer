@@ -17,7 +17,7 @@ func (p PartitionsStep) GetName() string {
 	return "partition"
 }
 
-func (p PartitionsStep) Run(config parser.InstallConfig, context *context.InstallContext) error {
+func (p PartitionsStep) Install(config parser.InstallConfig, context *context.InstallContext) error {
 	var err error = nil
 
 	for _, d := range config.Storage.Devices {
@@ -43,6 +43,10 @@ func (p PartitionsStep) Run(config parser.InstallConfig, context *context.Instal
 	}
 
 	return nil
+}
+
+func (p PartitionsStep) Cleanup(config parser.InstallConfig, context *context.InstallContext) {
+
 }
 
 // Creates a partition for a device with a custom partition label

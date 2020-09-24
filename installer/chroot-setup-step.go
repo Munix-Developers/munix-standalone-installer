@@ -16,7 +16,7 @@ func (p ChrootSetupStep) GetName() string {
 // Creates mount points crucial to a chroot.
 // Based in the arch-chroot shell script.
 // TODO: add resolv.conf setup
-func (p ChrootSetupStep) Run(config parser.InstallConfig, ic *context.InstallContext) error {
+func (p ChrootSetupStep) Install(config parser.InstallConfig, ic *context.InstallContext) error {
 	var err error = nil
 
 	root := ic.GetVar("root")
@@ -57,4 +57,7 @@ func (p ChrootSetupStep) Run(config parser.InstallConfig, ic *context.InstallCon
 	}
 
 	return nil
+}
+
+func (p ChrootSetupStep) Cleanup(config parser.InstallConfig, ic *context.InstallContext) {
 }

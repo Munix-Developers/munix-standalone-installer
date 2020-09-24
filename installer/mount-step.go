@@ -17,7 +17,7 @@ func (p MountStep) GetName() string {
 }
 
 // Mounts each partition in ROOT
-func (p MountStep) Run(config parser.InstallConfig, context *context.InstallContext) error {
+func (p MountStep) Install(config parser.InstallConfig, context *context.InstallContext) error {
 	setInstallRoot(context)
 
 	var err error = nil
@@ -45,6 +45,10 @@ func (p MountStep) Run(config parser.InstallConfig, context *context.InstallCont
 	}
 
 	return nil
+}
+
+func (p MountStep) Cleanup(config parser.InstallConfig, context *context.InstallContext) {
+	_ = utils.StdoutCmd("umount", "-v", "-R", context.GetVar("root")).Run()
 }
 
 // Sets the install root to a random directory

@@ -15,7 +15,7 @@ func (p PacstrapStep) GetName() string {
 }
 
 // Runs pacstrap with the desired pacman mirror.
-func (p PacstrapStep) Run(config parser.InstallConfig, ic *context.InstallContext) error {
+func (p PacstrapStep) Install(config parser.InstallConfig, ic *context.InstallContext) error {
 	var err error = nil
 
 	err = setupPacmanMirror(config.Pacman.Mirror)
@@ -31,6 +31,10 @@ func (p PacstrapStep) Run(config parser.InstallConfig, ic *context.InstallContex
 	}
 
 	return nil
+}
+
+func (p PacstrapStep) Cleanup(config parser.InstallConfig, context *context.InstallContext) {
+
 }
 
 func setupPacmanMirror(mirror string) error {

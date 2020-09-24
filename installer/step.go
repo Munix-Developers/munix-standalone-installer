@@ -6,6 +6,7 @@ import (
 )
 
 type InstallStep interface {
-	Run(config parser.InstallConfig, context *context.InstallContext) error
+	Install(config parser.InstallConfig, context *context.InstallContext) error
+	Cleanup(config parser.InstallConfig, context *context.InstallContext)
 	GetName() string
 }
