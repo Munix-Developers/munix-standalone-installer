@@ -21,6 +21,27 @@ func StdoutCmd(name string, arg ...string) *exec.Cmd {
 	return cmd
 }
 
+// Writes the output of a cmd to a file
+func StdoutToFile(fileName string, name string, arg ...string) {
+	log.Printf("creating %s %s command", name, strings.Join(arg, " "))
+
+	cmd := exec.Command(name, arg...)
+
+	outFile, err := os.Create(fileName)
+	if err != nil {
+		panic(err)
+	}
+	defer outFile.Close()
+	cmd.Stdout = outFile
+
+	err = cmd.Start()
+	if err != nil {
+		panic(err)
+	}
+
+	cmd.Wait()
+}
+
 // Creates a cmd that is connected to the system stdout, stdin and stderr, but chrooted to a specific folder
 func ChrootedCmd(name string, chrootPath string, arg ...string) *exec.Cmd {
 	cmd := StdoutCmd(name, arg...)

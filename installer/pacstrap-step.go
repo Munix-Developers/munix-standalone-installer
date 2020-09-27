@@ -24,11 +24,22 @@ func (p PacstrapStep) Install(config parser.InstallConfig, ic *context.InstallCo
 		return err
 	}
 
-	err = utils.StdoutCmd("pacstrap", ic.GetVar("root"), "base").Run()
+	root := ic.GetVar("root")
+	err = utils.StdoutCmd("pacstrap", root, "base").Run()
 
 	if err != nil {
 		return err
 	}
+
+	fstabFile := fmt.Sprintf("%s/etc/fstab", root)
+	utils.StdoutToFile(
+		fstabFile,
+		"genfstab",
+		"-U",
+		"-p",
+		root,
+		fmt.Sprintf("%s/etc/fstab", root),
+	)
 
 	return nil
 }
