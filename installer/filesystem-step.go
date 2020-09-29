@@ -39,5 +39,5 @@ func (p FileSystemStep) Cleanup(config parser.InstallConfig, context *context.In
 
 // Creates a filesystem using the command "mkfs." + device.
 func createFileSystem(device string, fileSystemType string) error {
-	return utils.StdoutCmd("mkfs."+fileSystemType, device).Run() // TODO if SWAP do nothing
+	return utils.StdoutCmd("mkfs."+fileSystemType, "-F", device).Run() // TODO if SWAP do nothing
 }
