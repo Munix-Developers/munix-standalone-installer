@@ -40,6 +40,7 @@ type DeviceConfig struct {
 }
 
 type PartitionConfig struct {
+	Boot           bool   `json:"boot" validate:"required"`
 	Type           string `json:"type" validate:"required"`
 	Mount          string `json:"mount" validate:"required"`
 	StartMegaBytes uint64 `json:"start_mb" validate:"required"`

@@ -32,7 +32,7 @@ func (p PacstrapStep) Install(config parser.InstallConfig, ic *context.InstallCo
 	}
 
 	fstabFile := fmt.Sprintf("%s/etc/fstab", root)
-	utils.StdoutToFile(
+	utils.StdoutToFile( // TODO: move this to grub step
 		fstabFile,
 		"genfstab",
 		"-U",

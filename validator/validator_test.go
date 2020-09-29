@@ -28,6 +28,22 @@ func TestWrongVersionError(t *testing.T) {
 	a.Error(err)
 }
 
+func TestOneBootPartition(t *testing.T) {
+	a := assert.New(t)
+
+	config := validConfig()
+	config.Storage.Devices[0].Partitions[0].Boot = false
+	err := ValidateConfig(config)
+
+	a.Error(err)
+
+	config = validConfig()
+	config.Storage.Devices[0].Partitions[1].Boot = true
+	err = ValidateConfig(config)
+
+	a.Error(err)
+}
+
 func TestLocaleExists(t *testing.T) {
 	t.Skip("Not implemented yet.")
 }
@@ -71,6 +87,7 @@ func validConfig() parser.InstallConfig {
 							Mount:          "/boot",
 							StartMegaBytes: 0,
 							SizeMegaBytes:  2.56e+8,
+							Boot:           true,
 						},
 						{
 							Type:           "ext4",
@@ -87,6 +104,9 @@ func validConfig() parser.InstallConfig {
 					},
 				},
 			},
+		},
+		Pacman: parser.PacmanConfig{
+			Mirror: "https://potatoe.com",
 		},
 	}
 }

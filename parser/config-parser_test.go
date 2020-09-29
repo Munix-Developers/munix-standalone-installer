@@ -29,10 +29,12 @@ func TestConfigJsonLoad(t *testing.T) {
 	a.Equal("device", config.Storage.Devices[0].Device)
 	a.Equal("type", config.Storage.Devices[0].Partitions[0].Type)
 	a.Equal("mount", config.Storage.Devices[0].Partitions[0].Mount)
+	a.Equal(false, config.Storage.Devices[0].Partitions[0].Boot)
 	a.Equal(uint64(777), config.Storage.Devices[0].Partitions[0].StartMegaBytes)
 	a.Equal(uint64(777), config.Storage.Devices[0].Partitions[0].SizeMegaBytes)
 	a.Equal("type", config.Storage.Devices[0].Partitions[1].Type)
 	a.Equal("mount", config.Storage.Devices[0].Partitions[1].Mount)
+	a.Equal(true, config.Storage.Devices[0].Partitions[1].Boot)
 	a.Equal(uint64(777), config.Storage.Devices[0].Partitions[1].StartMegaBytes)
 	a.Equal(uint64(777), config.Storage.Devices[0].Partitions[1].SizeMegaBytes)
 
@@ -77,12 +79,14 @@ var validJson = `
         "partitions": [
           {
             "type": "type",
+			"boot": false,
             "mount": "mount",
             "start_mb": 777,
             "size_mb": 777
           },
           {
             "type": "type",
+			"boot": true,
             "mount": "mount",
             "start_mb": 777,
             "size_mb": 777
